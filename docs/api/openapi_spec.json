@@ -1,0 +1,100 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "SpendWise Personal Finance API",
+    "description": "Production-grade RESTful API for SpendWise Personal Finance & Daily Spending Management Web App",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:5000/api/v1",
+      "description": "Local Development Server"
+    }
+  ],
+  "paths": {
+    "/auth/register": {
+      "post": {
+        "summary": "Register a new user account",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["email", "password", "firstName", "lastName"],
+                "properties": {
+                  "email": { "type": "string" },
+                  "password": { "type": "string" },
+                  "firstName": { "type": "string" },
+                  "lastName": { "type": "string" },
+                  "currency": { "type": "string" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": { "description": "User created successfully" }
+        }
+      }
+    },
+    "/auth/login": {
+      "post": {
+        "summary": "Authenticate user and issue JWT",
+        "responses": {
+          "200": { "description": "Authentication successful" }
+        }
+      }
+    },
+    "/transactions": {
+      "get": {
+        "summary": "Retrieve filtered and paginated transactions",
+        "responses": { "200": { "description": "Transactions list" } }
+      },
+      "post": {
+        "summary": "Record a new transaction",
+        "responses": { "201": { "description": "Transaction created" } }
+      }
+    },
+    "/budgets": {
+      "get": {
+        "summary": "Get budgets for specified month and year",
+        "responses": { "200": { "description": "Budget progress items" } }
+      },
+      "post": {
+        "summary": "Create or update category budget",
+        "responses": { "200": { "description": "Budget configured" } }
+      }
+    },
+    "/savings": {
+      "get": {
+        "summary": "List all active savings goals",
+        "responses": { "200": { "description": "Savings goals" } }
+      }
+    },
+    "/analytics/dashboard": {
+      "get": {
+        "summary": "Get aggregate financial dashboard summary",
+        "responses": { "200": { "description": "Dashboard metrics" } }
+      }
+    },
+    "/analytics": {
+      "get": {
+        "summary": "Deep analytics, predictions, and behavioral insights",
+        "responses": { "200": { "description": "Analytics dataset" } }
+      }
+    },
+    "/ocr/scan": {
+      "post": {
+        "summary": "Scan receipt image and extract structured items",
+        "responses": { "200": { "description": "Parsed receipt" } }
+      }
+    },
+    "/statements/export-pdf": {
+      "get": {
+        "summary": "Export verified PDF ledger statement",
+        "responses": { "200": { "description": "PDF stream" } }
+      }
+    }
+  }
+}
