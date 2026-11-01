@@ -36,3 +36,6 @@ uploads/
 .idea/
 .DS_Store
 Thumbs.db
+
+# Local SQLite migration backup
+backend/prisma/migrations_sqlite_backup/

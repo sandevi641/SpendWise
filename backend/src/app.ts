@@ -1,3 +1,4 @@
+
 import express, { Express } from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
@@ -18,11 +19,15 @@ export function createApp(): Express {
   // CORS Configuration
   app.use(cors({
     origin: (origin, callback) => {
-      // Allow requests with no origin (e.g. mobile apps, curl) or matching client url
-      if (!origin || origin.includes('localhost') || origin === config.clientUrl) {
+      const allowedOrigins = [
+        'http://localhost:5173',
+        config.clientUrl,
+      ];
+
+      if (!origin || allowedOrigins.includes(origin)) {
         callback(null, true);
       } else {
-        callback(null, true); // Dev flexible
+        callback(new Error('Not allowed by CORS'));
       }
     },
     credentials: true,
@@ -55,3 +60,4 @@ export function createApp(): Express {
 
   return app;
 }
+
